@@ -6,7 +6,6 @@
 ## 1. Business Context
 
 The marketplace is experiencing:
-
 - Seller dissatisfaction  
 - Margin pressure  
 - Negative customer reviews  
@@ -29,7 +28,6 @@ low_rating = 1 if review_score <= 2 else 0
 
 
 ### Why This Problem?
-
 - Directly aligned with stated business pain
 - Measurable outcome
 - Enables proactive intervention
@@ -40,7 +38,7 @@ low_rating = 1 if review_score <= 2 else 0
 - **Revenue prediction** → Does not directly address dissatisfaction.
 - **Customer churn** → Not directly measurable from available dataset.
 - **Delivery delay prediction** → Operational signal, but not the actual business outcome.
-
+  
 Low review prediction provides the strongest business leverage.
 
 ---
@@ -48,9 +46,7 @@ Low review prediction provides the strongest business leverage.
 ## 3. Data & Feature Engineering
 
 Dataset: Brazilian E-Commerce Public Dataset (Olist)
-
 ### Key Features Used
-
 - `delivery_delay_days`
 - `price`
 - `freight_value`
@@ -89,46 +85,33 @@ Precision	~0.21
 F1 Score	~0.29
 
 The model captures approximately 46% of low-rating orders before review is posted.
-
 Threshold tuning was explored to increase recall (~69%) but resulted in reduced precision. The default threshold (0.5) was selected for practical balance.
 
 6. Error Analysis
-
 Confusion Matrix:
-
 [[13754  4054]
  [ 1247  1059]]
 
 Observations:
-
 ~46% of low-rating cases detected
-
 Some dissatisfaction drivers not captured (e.g., product quality)
-
 False positives may be acceptable if intervention cost is low
-
 Limitations:
-
 No NLP analysis of review text
-
 No product category features
-
 Seller risk not rolling-window based
 
 7. Deployment
-
 Model is served via FastAPI.
 
 Run API
 uvicorn src.api.serve:app --reload
 
 Visit:
-
 http://127.0.0.1:8000/docs
 API Example
 
 Request:
-
 {
   "delivery_delay_days": -5,
   "price": 200,
@@ -137,7 +120,6 @@ Request:
 }
 
 Response:
-
 {
   "prediction": 1,
   "probability": 0.50,
@@ -161,11 +143,9 @@ Feature importance is derived from the trained Random Forest model.
 9. Docker
 
 Build:
-
 docker build -t marketplace-ml .
 
 Run:
-
 docker run -p 8000:8000 marketplace-ml
 10. AI Usage
 
